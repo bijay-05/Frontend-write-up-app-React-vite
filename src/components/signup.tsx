@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { ISignUp } from './interfaces/user.interface';
+import { ISignUp } from '../interfaces';
 
 interface UserAddPopupProps {
   showPopup: boolean;
