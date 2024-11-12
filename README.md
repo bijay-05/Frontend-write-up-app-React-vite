@@ -1,5 +1,14 @@
-# React + TypeScript + Vite
+# Write Up application frontend
+In this web application, users can create account and become member of the application user.
+- Sign Up and login
+- Read other writers posts
+- CRUD post by user
 
+## React + TypeScript + Vite
+
+
+=================================================================================================
+*************************************************************************************************
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
