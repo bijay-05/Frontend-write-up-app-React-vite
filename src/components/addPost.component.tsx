@@ -50,13 +50,24 @@ const PostAddPopup: React.FC<PostAddPopupProps> = ({ showPopup, setShowPopup, ad
                 <label htmlFor='password' className='block text-sm font-bold mb-2'>
                   Content:
                 </label>
-                <input
+                {/* <input
                   type='text'
                   id='content'
                   value={newPost.content}
                   onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-                  className='w-full border border-gray-300 rounded-md px-3 py-2'
-                />
+                  className='w-full h-40 border border-gray-300 rounded-md px-3 py-2'
+                /> */}
+                <textarea
+                 id="content"
+                 name="content" 
+                 rows={5} 
+                 cols={5} 
+                 value={newPost.content}
+                 onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+                 className='w-full h-40 border border-gray-300 rounded-md px-3 py-2'
+                 >
+                  It was a dark night
+                </textarea>
               </div>
               <button
                 type='submit'
