@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { ILogin } from '../interfaces';
 
 interface UserLoginPopupProps {
@@ -13,7 +13,6 @@ const UserLoginPopup: React.FC<UserLoginPopupProps> = ({ showPopup, setShowPopup
     useremail: '',
     password: ''
   });
-  const navigate = useNavigate();
 
   const handleLoginUser = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,7 +22,6 @@ const UserLoginPopup: React.FC<UserLoginPopupProps> = ({ showPopup, setShowPopup
       useremail: '',
       password: ''
     });
-    //navigate("/posts")
   };
 
   return (
