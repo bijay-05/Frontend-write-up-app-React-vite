@@ -1,8 +1,9 @@
 # Write Up application frontend
-In this web application, users can create account and become member of the application user.
+In this web application, users can create account and become a user.
 - Sign Up and login
-- Read other writers posts
-- CRUD post by user
+- Read blogs
+- CRUD blogs by user
+- Comment on blogs- A user can comment multiple times in a single blog
 
 ## React + TypeScript + Vite
 
