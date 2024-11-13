@@ -2,7 +2,7 @@ import axios from 'axios';
 import { INewPost, IPost } from '../interfaces';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api/v1/post',
+  baseURL: 'http://localhost:3000/api/v1/blog',
 });
 
 //@Get all posts
