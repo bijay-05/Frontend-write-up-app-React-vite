@@ -9,20 +9,25 @@ interface PostAddPopupProps {
 }
 
 const PostAddPopup: React.FC<PostAddPopupProps> = ({ showPopup, setShowPopup, addPost }) => {
-  const [newPost, setNewPost] = useState<INewPost>({
-    title: '',
-    content: ''
-  });
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [tags, setTags] = useState('');
+
 //   const navigate = useNavigate();
 
   const handleAddPost = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addPost(newPost);
+    const newBlog = {
+      title,
+      content,
+      tags: tags.split(',').map(tag => tag.trim())
+    }
+    addPost(newBlog);
+    console.log("Blog to be added: ", newBlog);
     setShowPopup(false);
-    setNewPost({
-      title: '',
-      content: ''
-    });
+    setContent('');
+    setTags('');
+    setTitle('');
     //navigate("/posts")
   };
 
@@ -41,8 +46,8 @@ const PostAddPopup: React.FC<PostAddPopupProps> = ({ showPopup, setShowPopup, ad
                 <input
                   type='text'
                   id='title'
-                  value={newPost.title}
-                  onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                   className='w-full border border-gray-300 rounded-md px-3 py-2'
                 />
               </div>
@@ -62,12 +67,23 @@ const PostAddPopup: React.FC<PostAddPopupProps> = ({ showPopup, setShowPopup, ad
                  name="content" 
                  rows={5} 
                  cols={5} 
-                 value={newPost.content}
-                 onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+                 value={content}
+                 onChange={(e) => setContent(e.target.value)}
                  className='w-full h-40 border border-gray-300 rounded-md px-3 py-2'
                  >
                   It was a dark night
                 </textarea>
+              </div>
+              <div className='mt-2 mb-2'>
+                <label htmlFor='tags' className='block text-sm font-bold mb-2'>
+                  Tags:
+                </label>
+                <input
+                  type='text'
+                  value={tags}
+                  onChange={(e) => setTags(e.target.value)}
+                  className='w-full border border-gray-300 rounded-md px-3 py-2'
+                />
               </div>
               <button
                 type='submit'

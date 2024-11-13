@@ -13,10 +13,10 @@ const PostViewPopup: React.FC<PostViewPopupProps> = ({ showPopup, setShowPopup, 
     {
        showPopup && (
         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-          <div className='bg-orange-300 p-8 rounded-md shadow-md'>
+          <div className='bg-orange-300 p-8 rounded-md shadow-md items-center'>
             <h2 className='text-4xl font-bold mb-4'>{viewPost?.title}</h2>
-            <div className='p-2 max-w-ws bg-white mb-2'>
-              <p className='text-xl text-green-800 font-italic mb-4 bg-green'>{viewPost?.content}</p>
+            <div className='p-1 flex overflow-hidden bg-white mb-2 justify-center'>
+              <p className='text-xl w-1/2 text-green-800 font-italic mb-4 bg-green'>{viewPost?.content}</p>
             </div>
             <div className='bg-gray-100 w-fit p-2 rounded-md'>
                 <p className='bg-white text-sm'>Written On:</p>

@@ -1,79 +1,117 @@
 import { FormEvent, useState, useEffect } from 'react';
-import { INewPost } from '../interfaces/post.interface';
+// import { Link, useNavigate } from 'react-router-dom';
+import { INewPost, IPost } from '../interfaces';
 
-interface PostUpdatePopupProps {
+interface PostEditPopupProps {
   showPopup: boolean;
   setShowPopup: (show: boolean) => void;
-  updatePost: (updatedPost: INewPost) => void;
-  PostToUpdate: INewPost | null;
+  updatePost: (post: INewPost) => void;
+  PostToUpdate: IPost | null;
 }
 
-const PostUpdatePopup: React.FC<PostUpdatePopupProps> = ({ showPopup, setShowPopup, updatePost, PostToUpdate }) => {
-  const [editedTodo, setEditedTodo] = useState<INewPost>({
-    title: '',
-    content: ''
-  });
+const PostUpdatePopup: React.FC<PostEditPopupProps> = ({ showPopup, setShowPopup, updatePost, PostToUpdate }) => {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [tags, setTags] = useState('');
+
+//   const navigate = useNavigate();
 
   useEffect(() => {
-    if (PostToUpdate) {
-      setEditedTodo(PostToUpdate);
+    if(PostToUpdate) {
+      setContent(PostToUpdate.content);
+      setTitle(PostToUpdate.title);
+      setTags(PostToUpdate?.tags.join(','));
     }
-  }, [PostToUpdate]);
+  })
 
-  const handleUpdateTodo = (e: FormEvent<HTMLFormElement>) => {
+  const handleUpdatePost = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updatePost(editedTodo);
+    const newBlog = {
+      title,
+      content,
+      tags: tags.split(',').map(tag => tag.trim())
+    }
+    updatePost(newBlog);
+    console.log("Blog to be updated: ", newBlog);
     setShowPopup(false);
+    setContent('');
+    setTags('');
+    setTitle('');
+    //navigate("/posts")
   };
 
   return (
-    showPopup && (
-      <div className='fixed inset-0 w-full flex items-center justify-center bg-black bg-opacity-50'>
-        <div className='bg-yellow-500 p-8 rounded-md shadow-md'>
-          <h2 className='text-2xl font-bold mb-4'>Edit Todo</h2>
-          <form onSubmit={handleUpdateTodo}>
-            <div className='mb-4'>
-              <label htmlFor='title' className='block text-sm font-bold mb-2'>
-                Title:
-              </label>
-              <input
-                type='text'
-                id='title'
-                value={editedTodo.title}
-                onChange={(e) => setEditedTodo({ ...editedTodo, title: e.target.value })}
-                className='w-full border border-gray-300 rounded-md px-3 py-2'
-              />
-            </div>
-            <div className='mb-4'>
-              <label htmlFor='content' className='block text-sm font-bold mb-2'>
-                content:
-              </label>
-              <textarea
-                rows={5}
-                cols={50}
-                id='content'
-                value={editedTodo.content}
-                onChange={(e) => setEditedTodo({ ...editedTodo, content: e.target.value })}
-                className='w-full border border-gray-300 rounded-md px-3 py-2'
-              />
-            </div>
-            <button
-              type='submit'
-              className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 shadow-sm'
-            >
-              Update Post
-            </button>
-            <button
-              onClick={() => setShowPopup(false)}
-              className='ml-4 bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400'
-            >
-              Cancel
-            </button>
-          </form>
+    <>
+    {
+       showPopup && (
+        <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+          <div className='bg-white p-8 rounded-md shadow-md'>
+            <h2 className='text-2xl font-bold mb-4'>Write your thoughts..</h2>
+            <form onSubmit={handleUpdatePost}>
+              <div className='mb-4'>
+                <label htmlFor='title' className='block text-sm font-bold mb-2'>
+                  Title:
+                </label>
+                <input
+                  type='text'
+                  id='title'
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className='w-full border border-gray-300 rounded-md px-3 py-2'
+                />
+              </div>
+              <div className='mb-4'>
+                <label htmlFor='password' className='block text-sm font-bold mb-2'>
+                  Content:
+                </label>
+                {/* <input
+                  type='text'
+                  id='content'
+                  value={newPost.content}
+                  onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+                  className='w-full h-40 border border-gray-300 rounded-md px-3 py-2'
+                /> */}
+                <textarea
+                 id="content"
+                 name="content" 
+                 rows={5} 
+                 cols={5} 
+                 value={content}
+                 onChange={(e) => setContent(e.target.value)}
+                 className='w-full h-40 border border-gray-300 rounded-md px-3 py-2'
+                 >
+                  It was a dark night
+                </textarea>
+              </div>
+              <div className='mt-2 mb-2'>
+                <label htmlFor='tags' className='block text-sm font-bold mb-2'>
+                  Tags:
+                </label>
+                <input
+                  type='text'
+                  value={tags}
+                  onChange={(e) => setTags(e.target.value)}
+                />
+              </div>
+              <button
+                type='submit'
+                className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 shadow-sm'
+              >
+                Add Post
+              </button>
+              <button
+                onClick={() => setShowPopup(false)}
+                className='ml-4 bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400'
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
-    )
-  );
+      )
+    }
+    </>
+   )
 };
 
 export default PostUpdatePopup;
