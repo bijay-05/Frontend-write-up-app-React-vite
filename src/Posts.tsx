@@ -6,6 +6,7 @@ import { logoutUser } from './axios/auth.requests';
 import PostViewPopup from './components/viewPost.component';
 import { useNavigate } from 'react-router-dom';
 import { Cast, PlusIcon } from 'lucide-react';
+import NothingToShow from './components/nothing.component';
 
 // interface Post {
 //   id: number;
@@ -74,9 +75,9 @@ const PostList: React.FC = () => {
   }
   return (
     <>
-      <div className='w-full min-h-screen bg-gray-200 pt-16 px-8'>
+      <div className=' min-h-screen bg-yellow-200 pt-16 px-8'>
         <div className='flex justify-between items-center mb-10'>
-          <h1 className='text-4xl font-bold'>Write Up - Anything !!!</h1>
+          <h1 className='text-4xl font-bold'>Write Up - A Blogging Platform</h1>
           <button
             className='bg-blue-500 text-white px-2 py-2 rounded-md hover:bg-blue-600 shadow-sm'
             onClick={() => setShowPostAddPopup(true)}
@@ -105,7 +106,7 @@ const PostList: React.FC = () => {
           <div key={post.id} className={'bg-white p-4 rounded-md shadow-md flex flex-col'}>
             <div>
               <h2 className='text-xl font-bold'>{post.title}</h2>
-              <p className='text-gray-600 w-full'>{post.content.split(' ').slice(0,10).join(' ')}</p>
+              <p className='text-gray-600 w-full truncate'>{post.content.split(' ').slice(0,10).join(' ')}</p>
             </div>
             <div className='flex-grow' />
             <div className='flex justify-between'>
@@ -118,6 +119,7 @@ const PostList: React.FC = () => {
             </div>
           </div>
         ))}
+        <NothingToShow display={posts.length === 0}/>
         </div>
         <PostAddPopup
           showPopup={showPostAddPopup}

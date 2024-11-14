@@ -5,6 +5,7 @@ import UserLoginPopup from "./components/login";
 import { ISignUp, ILogin } from "./interfaces";
 import { createUser } from "./axios/user.requests";
 import { loginUser } from "./axios/auth.requests";
+import homeImage from "./assets/home.jpg";
 
 const Home: React.FC = () => {
 
@@ -45,7 +46,7 @@ const Home: React.FC = () => {
     return (
       <div className='w-full min-h-screen bg-gray-200 pt-16 px-8'>
         <div className='flex justify-between items-center mb-10'>
-          <h1 className='text-4xl font-bold'>Write Up - Anything !!!</h1>
+          <h1 className='text-4xl font-bold'>Write Up - A Blogging Platform</h1>
           <button
             className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 shadow-sm'
             onClick={() => setShowAddPopup(true)}
@@ -57,8 +58,8 @@ const Home: React.FC = () => {
           >Login
           </button>
         </div>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
-          
+        <div className='w-full border-hidden bg-left'>
+            <img src={homeImage} alt="Home page image"/>
         </div>
         <UserLoginPopup
           showPopup={showLoginPopup}
@@ -69,25 +70,6 @@ const Home: React.FC = () => {
         {/* <PostList loginStatus={loginStatus}/> */}
       </div>
     );
-
-    // return (
-    //     <>
-        
-    //         <UserAddPopup showPopup={showAddPopup} setShowPopup={setShowAddPopup} addUser={handleAddUser} />
-    //         <UserLoginPopup showPopup={showLoginPopup} setShowPopup={setShowLoginPopup} loginUser={handleLoginUser} />
-    //         {/* <nav>
-    //     {/* <ul>
-    //       <li>
-    //         <Link to="/">Home</Link>
-    //       </li>
-    //       <li>
-    //         <Link to="/posts">Posts</Link>
-    //       </li>
-    //     </ul>
-    //   </nav>
-    //     </div> */} */}
-    //     </>
-    // )
 }
 
 export default Home;

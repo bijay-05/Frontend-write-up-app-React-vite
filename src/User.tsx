@@ -9,6 +9,7 @@ import { Home } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from './axios/auth.requests';
 import { PlusIcon } from 'lucide-react';
+import BlogForm from './components/temp';
 
 const UserPosts: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -113,8 +114,8 @@ const UserPosts: React.FC = () => {
   return (
     <>
       <div className='w-full min-h-screen bg-gray-200 pt-16 px-8'>
-        <div className='flex justify-between items-center mb-10 '>
-          <h1 className='text-4xl font-bold'>Posts by You !!!</h1>
+        <div className='flex justify-between items-center mb-10'>
+          <h1 className='text-4xl font-bold'>Blogs authored by you</h1>
           <button
             className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 shadow-sm'
             onClick={() => setShowPostAddPopup(true)}
@@ -134,7 +135,7 @@ const UserPosts: React.FC = () => {
           >Logout
           </button>
         </div>
-        <div className='bg-white p-4 rounded-lg shadow-md min-w-full max-w-lg mb-4 flex'>
+        <div className='bg-white p-4 rounded-lg shadow-md min-w-full max-w-lg mb-4 flex  bg-purple-500'>
           <Home size={"45"}/>
         <h1 className='text-3xl font-bold'>Your Posts ({posts.length})</h1>
         </div> 
@@ -143,12 +144,9 @@ const UserPosts: React.FC = () => {
           <div key={post.id} className={'bg-white p-4 rounded-md shadow-md flex flex-col'}>
             <div>
               <h2 className='text-xl font-bold'>{post.title}</h2>
-              <p className='text-gray-600'>{post.content}</p>
+              <p className='text-gray-600 truncate'>{post.content}</p>
             </div>
             <div className='flex-grow' />
-            <p className={`${post.title ? 'text-green-500' : 'text-red-500'} font-bold mb-4`}>
-              {post.title ? 'Completed' : 'Not Completed'}
-            </p>
             <div className='flex justify-between'>
               <button
                 className='bg-blue-500 text-white  px-0.5 py-1 rounded-md hover:bg-blue-600'
@@ -180,6 +178,7 @@ const UserPosts: React.FC = () => {
         <PostViewPopup showPopup={showPostViewPopup} setShowPopup={setShowPostViewPopup} viewPost={viewingPost}/>
         <PostUpdatePopup showPopup={showPostEditPopup} setShowPopup={setShowPostEditPopup} updatePost={handleUpdatePost} PostToUpdate={postToUpdate}/>
         {showDeleteConfirmation && <DeleteConfirmationPopup onDeleteConfirmed={() => handleDeletePost(postToDelete?.id)} onCancel={cancelDelete}/>}
+        <BlogForm />
       </div>
     </>
   );
