@@ -5,11 +5,11 @@ export interface IPost {
     userId: string;
     createdOn: string;
     updatedOn: string;
-    tags: string[];
+    tags: { "tags": []};
 }
 
 export interface INewPost {
     title: string;
     content: string;
-    tags: string[];
+    tags: { "tags": []};
 }
