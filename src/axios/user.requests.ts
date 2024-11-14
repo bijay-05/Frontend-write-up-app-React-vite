@@ -1,9 +1,6 @@
-import axios from 'axios';
+import api from "./axios"
 import { ISignUp, IUser } from '../interfaces/user.interface';
 
-const api = axios.create({
-  baseURL: 'http://localhost:3000/api/v1/user',
-});
 
 // export const getAllTodos = async (): Promise<Todo[]> => {
 //   const response = await api.get('/');
@@ -12,12 +9,12 @@ const api = axios.create({
 // };
 
 export const getUserById = async (id: number): Promise<IUser> => {
-  const response = await api.get(`/${id}`);
+  const response = await api.get(`/user/${id}`);
   return response.data.todo;
 };
 
 export const createUser = async (newUser: ISignUp): Promise<IUser> => {
-  const response = await api.post('/', newUser);
+  const response = await api.post('/user', newUser);
   return response.data.data;
 };
 
