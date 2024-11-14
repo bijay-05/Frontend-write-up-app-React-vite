@@ -20,8 +20,9 @@ const PostAddPopup: React.FC<PostAddPopupProps> = ({ showPopup, setShowPopup, ad
     const newBlog = {
       title,
       content,
-      tags: tags.split(',').map(tag => tag.trim())
-    }
+      tags: { "tags": tags.split(',').map(tag => tag.trim())}
+    } as INewPost;
+
     addPost(newBlog);
     console.log("Blog to be added: ", newBlog);
     setShowPopup(false);
@@ -36,7 +37,7 @@ const PostAddPopup: React.FC<PostAddPopupProps> = ({ showPopup, setShowPopup, ad
     {
        showPopup && (
         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-          <div className='bg-white p-8 rounded-md shadow-md'>
+          <div className='bg-white p-8 h-[40vw] w-[50vw] rounded-md shadow-md'>
             <h2 className='text-2xl font-bold mb-4'>Write your thoughts..</h2>
             <form onSubmit={handleAddPost}>
               <div className='mb-4'>

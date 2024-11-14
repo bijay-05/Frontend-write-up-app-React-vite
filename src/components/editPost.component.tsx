@@ -20,17 +20,18 @@ const PostUpdatePopup: React.FC<PostEditPopupProps> = ({ showPopup, setShowPopup
     if(PostToUpdate) {
       setContent(PostToUpdate.content);
       setTitle(PostToUpdate.title);
-      setTags(PostToUpdate?.tags.join(','));
+      Array.isArray(PostToUpdate.tags["tags"]) && setTags(PostToUpdate?.tags?.tags.join(','));
     }
-  })
+  }, [PostToUpdate])
 
   const handleUpdatePost = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newBlog = {
       title,
       content,
-      tags: tags.split(',').map(tag => tag.trim())
-    }
+      tags: { "tags": tags.split(',').map(tag => tag.trim())}
+    } as INewPost;
+
     updatePost(newBlog);
     console.log("Blog to be updated: ", newBlog);
     setShowPopup(false);
@@ -45,7 +46,7 @@ const PostUpdatePopup: React.FC<PostEditPopupProps> = ({ showPopup, setShowPopup
     {
        showPopup && (
         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-          <div className='bg-white p-8 rounded-md shadow-md'>
+          <div className='bg-white h-[40vw] w-[50vw] p-8 rounded-md shadow-md'>
             <h2 className='text-2xl font-bold mb-4'>Write your thoughts..</h2>
             <form onSubmit={handleUpdatePost}>
               <div className='mb-4'>
@@ -61,7 +62,7 @@ const PostUpdatePopup: React.FC<PostEditPopupProps> = ({ showPopup, setShowPopup
                 />
               </div>
               <div className='mb-4'>
-                <label htmlFor='password' className='block text-sm font-bold mb-2'>
+                <label htmlFor='content' className='block text-sm font-bold mb-2'>
                   Content:
                 </label>
                 {/* <input
@@ -91,13 +92,14 @@ const PostUpdatePopup: React.FC<PostEditPopupProps> = ({ showPopup, setShowPopup
                   type='text'
                   value={tags}
                   onChange={(e) => setTags(e.target.value)}
+                  className='w-full h-10 border border-gray-300 rounded-md px-3 py-2'
                 />
               </div>
               <button
                 type='submit'
-                className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 shadow-sm'
+                className='bg-blue-500 text-white px-4 py-2 mt-8 rounded-md hover:bg-blue-600 shadow-sm'
               >
-                Add Post
+                Update
               </button>
               <button
                 onClick={() => setShowPopup(false)}
