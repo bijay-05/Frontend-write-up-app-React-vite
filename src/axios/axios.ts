@@ -20,7 +20,6 @@ api.interceptors.response.use(
         const refreshToken = localStorage.getItem("refreshToken");
 
         const response = await api.post('/auth/refresh', { token: refreshToken }, { withCredentials: true });
-        console.log("cookie in refresh response headers: ", response.headers['set-cookie'])
 
         const status = response.data.status;
         console.log("Status after refresh end point: ", status)
